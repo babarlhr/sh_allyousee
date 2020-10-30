@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="woo_financial_status_onboarding_wizard_view" model="ir.ui.view">
+            <field name="name">woo.financial.status.onboarding.wizard.form</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority">1002</field>
+            <field name="arch" type="xml">
+                <form string="Financial Status">
+                    <sheet>
+                        <div class="oe_title mb-2 ml-2" attrs="{'invisible': [('woo_instance_id', '!=', False)]}">
+                            <h1>
+                                No Instance Created Yet!
+                            </h1>
+                        </div>
+                        <div class="oe_title mb-2" attrs="{'invisible': [('woo_instance_id', '=', False)]}">
+                            <h1 class="font-weight-bold">
+                                <field name="woo_instance_id" readonly="1" options="{'no_open': True}"/>
+                            </h1>
+                        </div>
+                        <div class="o_horizontal_separator font-weight-bold" style="font-size: 1.50rem; mb-0"
+                             attrs="{'invisible': [('woo_instance_id', '=', False)]}">Stock Configuration</div>
+                        <div id="stock_information"
+                             attrs="{'invisible': [('woo_instance_id', '=', False)]}">
+                            <div class="row mt10 o_settings_container">
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="ml-2 pl-1">
+                                        <label for="woo_stock_field"/>
+                                        <field name="woo_stock_field"
+                                                       options="{'no_open':True,'no_create':True,'no_create_edit':True}"
+                                                       domain="[('model_id.model','=','product.product'),('name','in',['free_qty','virtual_available'])]"
+                                                       attrs="{'required':[('woo_instance_id','!=',False)]}"
+                                                       class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr attrs="{'invisible': [('woo_instance_id', '=', False)]}"/>
+                        <div class="o_horizontal_separator font-weight-bold" style="font-size: 1.50rem; mb-0"
+                             attrs="{'invisible': [('woo_instance_id', '=', False)]}">Webhook Configuration</div>
+                        <div class="row mt16 o_settings_container"
+                             attrs="{'invisible': [('woo_instance_id', '=', False)]}">
+                            <div class="col-12 col-lg-12 o_setting_box">
+                                <div class="alert alert-warning" role="alert">
+                                    <h3 style="font-weight:bold;color:#7d5a29">
+                                        <u>Note :</u>
+                                    </h3>
+                                    <b>
+                                        <ul>
+                                            <li>Webhooks can be managed using below options.</li>
+                                            <li>
+                                                Enabling an option will either creates a new webhook
+                                                for
+                                                its all actions (such as 'create', 'update',
+                                                'delete' etc.)
+                                                or activates it, if already exists.
+                                            </li>
+                                            <li>Disabling an option will deactivates the webhooks.
+                                            </li>
+                                            <li>For detailed options,</li>
+                                            <ol>
+                                                <li>Go to WooCommerce <i
+                                                        class="fa fa-angle-double-right"></i> Configuration
+                                                    <i class="fa fa-angle-double-right"></i>
+                                                    Instances.
+                                                </li>
+                                                <li>Open an instance.</li>
+                                                <li>Select Webhooks tab.</li>
+                                            </ol>
+                                        </ul>
+
+                                    </b>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="ml-2 pl-1">
+                                    <label for="create_woo_product_webhook" string="Manage Products via Webhooks"/>
+                                    <field name="create_woo_product_webhook" widget="boolean_toggle"/>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div>
+                                    <label for="create_woo_customer_webhook" string="Manage Customers via Webhooks"/>
+                                    <field name="create_woo_customer_webhook" widget="boolean_toggle"/>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="ml-2 pl-1">
+                                    <label for="create_woo_order_webhook" string="Manage Orders via Webhooks"/>
+                                    <field name="create_woo_order_webhook" widget="boolean_toggle" class="ml-3"/>
+                                </div>
+                            </div>
+                        </div>
+                        <notebook attrs="{'invisible': [('woo_instance_id', '=', False)]}">
+                            <page string="Financial Status Configurations" name="financial_status_lines">
+                                <field name="woo_financial_status_ids"/>
+                            </page>
+                        </notebook>
+                        <footer>
+                            <button string="Save Configuration" type="object"
+                                    name="woo_save_financial_status_configurations" class="oe_highlight"
+                                    attrs="{'invisible': [('woo_instance_id', '=', False)]}"/>
+                            <button class="oe_highlight" special="cancel"
+                                    string="Cancel"/>
+                        </footer>
+                    </sheet>
+                    <script>
+                        <!-- Remove Add a line and Delete Button from many2many field : woo_financial_status_ids -->
+                        $(document).ready(function(){
+                        $(".o_field_x2many_list_row_add").hide();
+                        <!--                        $(".o_list_record_remove button").remove();-->
+                        <!--                        $(".o_list_record_remove").removeAttr('class');-->
+                        });
+                    </script>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

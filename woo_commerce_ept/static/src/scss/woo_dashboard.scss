@@ -1,0 +1,46 @@
+.o_kanban_view.o_kanban_dashboard.o_woo_kanban {
+    .o_kanban_record {
+
+        .oe_kanban_action_button {
+            margin-bottom: 5px;
+        }
+
+        .o_kanban_card_settings {
+            padding-top: $o-horizontal-padding/2;
+            padding-bottom: $o-horizontal-padding/2;
+
+            border-top: 1px solid;
+            border-color: $o-brand-lightsecondary;
+        }
+        .o_dashboard_star {
+            font-size: 12px;
+
+            &.fa-star-o {
+                color: $o-main-color-muted;
+                &:hover {
+                    color: gold;
+                }
+            }
+            &.fa-star {
+                color: gold;
+            }
+        }
+
+        .o_dashboard_graph {
+            margin-bottom: -$o-horizontal-padding/2;
+        }
+    }
+
+    &.o_kanban_ungrouped {
+        .o_kanban_record {
+            width: 450px;
+        }
+    }
+}
+@media (min-width:) {
+	.o_kanban_view.o_kanban_dashboard.o_woo_kanban {
+		.o_kanban_record {
+			min-width: 420px;
+		}
+	}
+}

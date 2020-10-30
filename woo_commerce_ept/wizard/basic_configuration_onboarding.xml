@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="woo_basic_configurations_onboarding_wizard_view" model="ir.ui.view">
+            <field name="name">woo.basic.configurations.onboarding.form</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority">1002</field>
+            <field name="arch" type="xml">
+                <form string="Financial Status">
+                    <div class="oe_title mb-2 ml-2" attrs="{'invisible': [('woo_instance_id', '!=', False)]}">
+                        <h1>
+                            No Instance Created Yet!
+                        </h1>
+                    </div>
+                    <div class="oe_title mb-2 ml-2" attrs="{'invisible': [('woo_instance_id', '=', False)]}">
+                        <h1 class="font-weight-bold">
+                            <field name="woo_instance_id" readonly="1" options="{'no_open': True}"/>
+                        </h1>
+                    </div>
+
+                    <div class="o_horizontal_separator font-weight-bold" style="font-size: 1.50rem;"
+                         attrs="{'invisible': [('woo_instance_id', '=', False)]}">General Configuration</div>
+                    <div name="general_information" attrs="{'invisible': [('woo_instance_id', '=', False)]}">
+                        <div class="row mt10 o_settings_container o_settings_container_woo_config px-4">
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div class="ml-2 pl-1">
+                                    <label for="woo_warehouse_id"/>
+                                    <field name="woo_company_id" invisible="1"/>
+                                    <field name="woo_warehouse_id"
+                                           options="{'no_create':True,'no_create_edit': True}"
+                                           attrs="{'required':[('woo_instance_id','!=',False)]}"
+                                           class="oe_inline"/>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div>
+                                    <label for="woo_lang_id"/>
+                                    <field name="woo_lang_id"
+                                           options="{'no_open':True,'no_create':True,'no_create_edit':True}"
+                                           attrs="{'required':[('woo_instance_id','!=',False)]}"
+                                           class="oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr attrs="{'invisible': [('woo_instance_id', '=', False)]}"/>
+                    <div class="o_horizontal_separator font-weight-bold" style="font-size: 1.50rem;"
+                         attrs="{'invisible': [('woo_instance_id', '=', False)]}">Product Configuration</div>
+                    <div name="product_information" attrs="{'invisible': [('woo_instance_id', '=', False)]}">
+                        <div class="row mt10 o_settings_container o_settings_container_woo_config px-4">
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div class="ml-2 pl-1">
+                                    <label for="woo_sync_images_with_product"/>
+                                    <field name="woo_sync_images_with_product"
+                                           style="margin-left:170px;" widget="boolean_toggle"/>
+                                    <a href="javascript:void(0)"
+                                       title="If checked, it will automatically import product image, while product import process else not."
+                                       class="mr-2 o_doc_link"/>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div>
+                                    <label for="woo_weight_uom_id"/>
+                                    <field name="woo_weight_uom_id" class="ml-2"
+                                           attrs="{'required':[('woo_instance_id','!=',False)]}"
+                                           options="{'no_open':True,'no_create':True,'no_create_edit':True}"/>
+                                    <a href="javascript:void(0)"
+                                       title="- Select Weight unit same as WooCommerce Store for setting proper Weight in Product. &#013; - If this value is different than what is configured in Odoo, system will do the conversion between both units of measure and then perform the Import/Export Operation of Products."
+                                       class="ml-2 o_doc_link"/>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div class="ml-2 pl-1">
+                                    <label for="woo_sync_price_with_product"/>
+                                    <field name="woo_sync_price_with_product" style="margin-left:133px;"
+                                           widget="boolean_toggle"/>
+                                    <a href="javascript:void(0)"
+                                       title="If checked, it will set the product price in the pricelist configured under the given instance, while product import process else not."
+                                       class="mr-2 o_doc_link"/>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div>
+                                    <label for="woo_attribute_type"/>
+                                    <field name="woo_attribute_type" class="w-25"
+                                           attrs="{'required':[('woo_instance_id','!=',False)]}"/>
+                                    <a href="javascript:void(0)"
+                                       title="- Select Attribute type for exporting attributes while exporting/updating products from Odoo to WooCommerce. &#013; 1) Select : It will create attribute at Global level at WooCommerce Store, which will be accessible across all products. &#013; - 2) Text : It will add attribute in particular product. So, the attribute and its values will be exclusively available for that individual product and will not be shared with any other product."
+                                       class="ml-2 o_doc_link"/>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div class="ml-2 pl-1">
+                                    <label for="woo_auto_import_product"/>
+                                    <field name="woo_auto_import_product" class="ml-5" widget="boolean_toggle"/>
+                                    <a href="javascript:void(0)"
+                                       title="- This option creates a new product in your Odoo catalog if system couldn't find the product based on SKU Internal Reference Default Product Code. &#013; - If you are selling on multiple sales channels and having different SKU / Internal Reference / Default Product Code on each sales channel, it may lead to creation of duplicate products in your product catalogue in your database. &#013; - So we request you to enable this option, as per your product catalogue configuration."
+                                       class="mr-2 o_doc_link"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr attrs="{'invisible': [('woo_instance_id', '=', False)]}"/>
+                    <div class="o_horizontal_separator font-weight-bold" style="font-size: 1.50rem;"
+                         attrs="{'invisible': [('woo_instance_id', '=', False)]}">Order Configuration</div>
+                    <div name="order_information"
+                         attrs="{'invisible': [('woo_instance_id', '=', False)]}">
+                        <div class="row mt10 o_settings_container o_settings_container_woo_config px-4">
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div class="ml-2 pl-1">
+                                    <label for="woo_import_order_status_ids"/>
+                                    <field name="woo_import_order_status_ids"
+                                           widget="many2many_tags"
+                                           options="{'no_create':True,'no_create_edit': True}"
+                                           class="oe_inline w-25"/>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div>
+                                    <label for="woo_last_order_import_date" string="Import Order From"/>
+                                    <field name="woo_last_order_import_date"
+                                           class="oe_inline ml-2"/>
+                                    <a href="javascript:void(0)" title="Set the last import order date."
+                                       class="ml-2 o_doc_link"/>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div class="ml-2 pl-1">
+                                    <label for="woo_custom_order_prefix" string="Use Odoo Default Sequence?"/>
+                                    <field name="woo_custom_order_prefix" style="margin-left:155px;"
+                                           widget="boolean_toggle"/>
+                                    <a href="javascript:void(0)"
+                                       title="If Unchecked, it will set default order sequence."
+                                       class="mr-2 o_doc_link"/>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div>
+                                    <label for="woo_sales_team_id"/>
+                                    <field name="woo_sales_team_id"
+                                           options="{'no_create':True,'no_create_edit':True}"
+                                           class="oe_inline ml-2"/>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div class="ml-2 pl-1"
+                                     attrs="{'invisible': [('woo_custom_order_prefix', '=', True)]}">
+                                    <label for="woo_order_prefix"/>
+                                    <field name="woo_order_prefix"
+                                           attrs="{'invisible': [('woo_custom_order_prefix', '=', True)]}"
+                                           class="oe_inline"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <hr attrs="{'invisible': [('woo_instance_id', '=', False)]}"/>
+                    <div class="o_horizontal_separator font-weight-bold" style="font-size: 1.50rem;"
+                         attrs="{'invisible': [('woo_instance_id', '=', False)]}">Tax Configuration</div>
+                    <div name="tax_configuration" attrs="{'invisible': [('woo_instance_id', '=', False)]}">
+                        <div class="row mt10 o_settings_container o_settings_container_woo_config px-4">
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div class="ml-2 pl-1">
+                                    <label for="woo_apply_tax"/>
+                                    <field name="woo_apply_tax" class="w-50" required="1"/>
+                                    <a href="javascript:void(0)"
+                                       title="1) Odoo Default Tax Behaviour - The Taxes will be set based on Odoo's default functional behaviour i.e. based on Odoo's Tax and Fiscal Position configurations. &#013; 2) Create New Tax If Not Found - System will search the tax data received from Woocommerce in Odoo, will create a new one if it fails in finding it."
+                                       class="ml-2 o_doc_link"/>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box p-0">
+                                <div>
+                                    <label for="woo_tax_rounding_method"/>
+                                    <field name="woo_tax_rounding_method" widget="radio"/>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box p-0"
+                                 attrs="{'invisible':[('woo_apply_tax','=','odoo_tax')]}">
+                                <div class="ml-2 pl-1">
+                                    <label for="woo_invoice_tax_account_id" string="Invoice Tax Account"/>
+                                    <field name="woo_invoice_tax_account_id"
+                                           options="{'no_create':True,'no_create_edit':True}"/>
+                                    <a href="javascript:void(0)" title="Tax Account to set in Invoice."
+                                       class="ml-2 o_doc_link"/>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 o_setting_box p-0"
+                                 attrs="{'invisible':[('woo_apply_tax','=','odoo_tax')]}">
+                                <div>
+                                    <label for="woo_credit_note_tax_account_id" string="Credit Note Tax Account"/>
+                                    <field name="woo_credit_note_tax_account_id"
+                                           options="{'no_create':True,'no_create_edit':True}"/>
+                                    <a href="javascript:void(0)" title="Tax Account to set in Credit Note."
+                                       class="ml-2 o_doc_link"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer>
+                        <button string="Save Configurations" type="object"
+                                name="woo_save_basic_configurations" class="oe_highlight"
+                                attrs="{'invisible': [('woo_instance_id', '=', False)]}"/>
+                        <button class="oe_highlight" special="cancel"
+                                string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

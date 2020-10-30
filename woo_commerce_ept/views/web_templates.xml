@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_backend" name="woo_commerce_ept assets"
+              inherit_id="web.assets_backend">
+        <xpath expr="//link[@href='/base/static/src/css/modules.css']" position="after">
+            <link rel="stylesheet" href="/woo_commerce_ept/static/src/css/woo_base.css"/>
+            <link rel="stylesheet" href="/woo_commerce_ept/static/src/scss/woo_dashboard.scss"/>
+        </xpath>
+    </template>
+</odoo>

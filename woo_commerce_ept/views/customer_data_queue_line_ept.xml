@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="woo_customer_data_queue_line_ept_form_view" model="ir.ui.view">
+        <field name="name">WooCommerce Customer Queue Line Ept</field>
+        <field name="model">woo.customer.data.queue.line.ept</field>
+        <field name="arch" type="xml">
+            <form string=">WooCommerce Customer Queue Line" create="0" edit="0" delete="0">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="woo_instance_id"/>
+                            <field name="woo_synced_data_id" string="Woo Customer ID"/>
+                        </group>
+                        <group>
+                            <field name="queue_id" string="Customer Data Queue"/>
+                            <field name="write_date" string="Last Updated On"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Log">
+                            <field name="common_log_lines_ids">
+                                <tree>
+                                    <field name="message" string="Message"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Customer Data">
+                            <field name="woo_synced_data"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

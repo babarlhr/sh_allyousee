@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="woo_onboarding_confirmation_wizard_view" model="ir.ui.view">
+            <field name="name">woo.onboarding.done.confirmation.wizard.form</field>
+            <field name="model">woo.onboarding.confirmation.ept</field>
+            <field name="arch" type="xml">
+                <form string="Confirmation?">
+                    <sheet>
+                        <div class="oe_title mb-2 ml-2">
+                            <h1>
+                                Do you have done all the configurations?
+                            </h1>
+                        </div>
+                    </sheet>
+                    <footer>
+                        <button string="Yes" type="object"
+                                name="yes" class="oe_highlight"
+                                />
+                        <button class="oe_highlight" type="object"
+                                string="No" name="no"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="woo_onboarding_confirmation_wizard_action" model="ir.actions.act_window">
+            <field name="name">Confirmation?</field>
+            <field name="res_model">woo.onboarding.confirmation.ept</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="woo_onboarding_confirmation_wizard_view"/>
+        </record>
+
+    </data>
+</odoo>

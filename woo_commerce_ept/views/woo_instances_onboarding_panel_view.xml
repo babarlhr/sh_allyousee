@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ONBOARDING STEPS -->
+        <template id="onboarding_woo_instance_configuration">
+            <t t-call="base.onboarding_step">
+                <t t-set="title">Create Instance</t>
+                <t t-set="description">Create the new Woo-Commerce instance here.</t>s
+                <t t-set="done_icon" t-value="'fa-star'"/>
+                <t t-set="done_text">Looks great!</t>
+                <t t-set="btn_text">Create Instance</t>
+                <t t-set="model" t-value="'res.config.woo.instance'"/>
+                <t t-set="method" t-value="'action_open_woo_instance_wizard'"/>
+                <t t-set="state" t-value="state.get('woo_instance_onboarding_state')"/>
+            </t>
+        </template>
+
+        <template id="onboarding_woo_basic_configuration">
+            <t t-call="base.onboarding_step">
+                <t t-set="title">Manage Configurations</t>
+                <t t-set="description">Manage the configuration for your instance.</t>
+                <t t-set="done_icon" t-value="'fa-star'"/>
+                <t t-set="done_text">Great!</t>
+                <t t-set="btn_text">Configure</t>
+                <t t-set="model" t-value="'res.config.settings'"/>
+                <t t-set="method" t-value="'action_woo_open_basic_configuration_wizard'"/>
+                <t t-set="state" t-value="state.get('woo_basic_configuration_onboarding_state')"/>
+            </t>
+        </template>
+
+        <template id="onboarding_woo_financial_status_configuration">
+            <t t-call="base.onboarding_step">
+                <t t-set="title">Financial Status</t>
+                <t t-set="description">Configure the Woo Financial Status here.</t>
+                <t t-set="btn_text">Configure</t>
+                <t t-set="done_icon" t-value="'fa-magic'"/>
+                <t t-set="done_text">Nice!</t>
+                <t t-set="model" t-value="'res.config.settings'"/>
+                <t t-set="method" t-value="'action_woo_open_financial_status_wizard'"/>
+                <t t-set="state" t-value="state.get('woo_financial_status_onboarding_state')"/>
+            </t>
+        </template>
+        <template id="onboarding_woo_cron_configuration">
+            <t t-call="base.onboarding_step">
+                <t t-set="title">Scheduler Configurations</t>
+                <t t-set="description">Configure the schedule actions for automation.</t>
+                <t t-set="btn_text">Configure</t>
+                <t t-set="method" t-value="'action_woo_open_cron_configuration_wizard'"/>
+                <t t-set="model" t-value="'woo.cron.configuration.ept'"/>
+                <t t-set="state" t-value="state.get('woo_cron_configuration_onboarding_state')"/>
+            </t>
+        </template>
+
+        <!-- ONBOARDING PANEL-->
+        <template id="woo_instances_onboarding_panel_ept" name="woo.instances.onboarding.panel.ept">
+            <t t-call="base.onboarding_container">
+                <t t-set="is_woo_panel" t-value="'is_woo_panel'"/>
+                <t t-set="classes" t-value="'o_onboarding_violet'"/>
+                <t t-set="bg_image" t-value="'/woo_commerce_ept/static/src/img/woo_commerce_onboarding_image.png'"/>
+                <t t-set="close_method" t-value="'action_close_woo_instances_onboarding_panel'"/>
+                <t t-set="close_model" t-value="'res.company'"/>
+                <!--                <t t-call="base.onboarding_company_step" name="company_step"/>-->
+                <t t-call="woo_commerce_ept.onboarding_woo_instance_configuration" name="woo_instance_step"/>
+                <t t-call="woo_commerce_ept.onboarding_woo_basic_configuration"
+                   name="woo_basic_configuration_step"/>
+                <t t-call="woo_commerce_ept.onboarding_woo_financial_status_configuration"
+                   name="woo_financial_status_step"/>
+                <t t-call="woo_commerce_ept.onboarding_woo_cron_configuration"
+                   name="woo_cron_configurations_step"/>
+            </t>
+        </template>
+
+        <!--
+            Inherited main onboarding view in order to add collapse button
+            @param {is_woo_panel(to add button in specified view )}
+            Added by: Preet Bhatti @Emipro Technologies
+            Added on: 28/09/2020
+        -->
+        <template id="inherit_onboarding_container" inherit_id="base.onboarding_container">
+            <xpath expr="div[hasclass('o_onboarding_container')]" position="before">
+                <t t-if="is_woo_panel">
+                    <button id="woo_button_toggle" t-att-data-company-id="toggle_company_id"
+                            type="button" t-att-class="'d-none btn btn-link' if is_button_active else 'btn btn-link'"
+                            t-att-style="'background-color:#ececec;border:1px solid #ccc' if hide_panel else ''">
+                        <t t-esc="btn_value"></t>
+                    </button>
+                </t>
+            </xpath>
+
+            <!-- Changes to class to toogle the onBoadring panel-->
+            <xpath expr="div[hasclass('o_onboarding_container')]" position="attributes">
+                <attribute name="t-att-class">'o_onboarding_container collapse' if hide_panel else 'o_onboarding_container collapse show'</attribute>
+            </xpath>
+
+            <xpath expr="//a[hasclass('float-right') and hasclass('o_onboarding_btn_close')]" position="replace">
+                <t t-if="is_woo_panel">
+                    <a href="#" data-toggle="modal" data-target=".o_onboarding_modal"
+                       class="d-none float-right o_onboarding_btn_close">
+                        <i class="fa fa-times" title="Close the onboarding panel"/>
+                    </a>
+                </t>
+                <t t-else="">
+                    <a href="#" data-toggle="modal" data-target=".o_onboarding_modal"
+                       class="float-right o_onboarding_btn_close">
+                        <i class="fa fa-times" title="Close the onboarding panel"/>
+                    </a>
+                </t>
+            </xpath>
+        </template>
+
+<!--        <template id="inherit_assets_backend_woo" inherit_id="web.assets_backend">-->
+<!--            <xpath expr="." position="inside">-->
+<!--                <script src="/woo_commerce_ept/static/src/js/woo_button_collapse.js"></script>-->
+<!--            </xpath>-->
+<!--        </template>-->
+    </data>
+</odoo>

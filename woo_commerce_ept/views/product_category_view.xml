@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_woo_categs_form_view_ept" model="ir.ui.view">
+        <field name="name">WooCommerce categs</field>
+        <field name="model">woo.product.categ.ept</field>
+        <field name="arch" type="xml">
+            <form string="WooCommerce Categories">
+                <sheet>
+                    <field name="image" widget="image"
+                           attrs="{'invisible':[('woo_is_image_url','=',True)]}"
+                           class="oe_avatar oe_left" nolabel="1"/>
+                    <div class="oe_title oe_left" style="width: 500px;">
+                        <div class="oe_edit_only">
+                            <field name="woo_is_image_url" class="oe_inline" invisible="1"/>
+                        </div>
+                        <h1>
+                            <field name="name" required="1" default_focus="1"
+                                   placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="woo_instance_id" domain="[('state','=','confirmed')]"/>
+                            <field name="parent_id"
+                                   domain="[('woo_instance_id','=',woo_instance_id)]"/>
+                        </group>
+                        <group>
+                            <field name="display"/>
+                            <field name="slug"/>
+                            <field name="woo_categ_id"/>
+                            <field name="exported_in_woo"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="url"
+                               attrs="{'invisible':[('woo_is_image_url','=',False)]}"/>
+                    </group>
+                    <group>
+                        <field name="response_url"
+                               attrs="{'invisible':[('woo_is_image_url','=',False)]}"/>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="product_woo_categs_tree_view_ept" model="ir.ui.view">
+        <field name="name">woo categs</field>
+        <field name="model">woo.product.categ.ept</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="slug"/>
+                <field name="parent_id"/>
+                <field name="woo_instance_id"/>
+                <field name="exported_in_woo"/>
+                <field name="woo_categ_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="product_woo_categs_search_view_ept" model="ir.ui.view">
+        <field name="name">Woo Categ Search View</field>
+        <field name="model">woo.product.categ.ept</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Woo Category">
+                <field name="name"/>
+                <field name="woo_categ_id"/>
+                <filter name="exported_in_woo" string="Exported In Woo"
+                        icon="terp-accessories-archiver"
+                        domain="[('exported_in_woo','=',True)]"/>
+                <filter name="not_exported_in_woo" string="Not Exported In Woo"
+                        icon="terp-accessories-archiver"
+                        domain="[('exported_in_woo','=',False)]"/>
+                <group expand="0" string="Group By...">
+                    <filter name="instance" string="Instance" icon="terp-personal"
+                            context="{'group_by':'woo_instance_id'}"/>
+                    <filter name="display" string="Display" icon="terp-personal"
+                            context="{'group_by':'display'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="product_categ_action_ept" model="ir.actions.act_window">
+        <field name="name">Product Categories</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woo.product.categ.ept</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="product_categ_instance_action_ept" model="ir.actions.act_window">
+
+        <field name="name">Product Categories</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woo.product.categ.ept</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('woo_instance_id','=',active_id)]</field>
+    </record>
+
+    <menuitem action="product_categ_action_ept" id="menu_product_categ" name="Categories"
+              parent="woo_commerce_ept.woo_catalog" sequence="2"/>
+
+</odoo>
