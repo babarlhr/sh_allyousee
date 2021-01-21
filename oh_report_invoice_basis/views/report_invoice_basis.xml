@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+    <!--xpath cheet sheet https://gist.github.com/LeCoupa/8c305ec8c713aad07b14-->
+    <template id="report_invoice_document_inherit_oh" inherit_id="account.report_invoice_document">
+      <xpath expr="//th[@name='th_taxes']" position="replace">
+          
+      </xpath>
+
+      <xpath expr="//table[@name='invoice_line_table']//td[position()=5]" position="replace">
+     
+      </xpath>
+
+      <xpath expr="//t[@t-foreach='o.amount_by_group']" position="replace">
+            <tr style="">
+                <td><strong>Tax</strong></td>
+                <td class="text-right o_price_total">
+                    <span t-esc="o.amount_tax" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                </td>
+            </tr>
+      </xpath> 
+      
+    </template>
+
+</odoo>

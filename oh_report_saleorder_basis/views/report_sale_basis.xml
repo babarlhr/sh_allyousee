@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_saleorder_document_oh_inherit" inherit_id="sale.report_saleorder_document">
+     <xpath expr="//th[@name='th_taxes']" position="replace">
+          
+      </xpath>
+
+      <xpath expr="//table[@class='table table-sm o_main_table']//td[position()=5]" position="replace">
+          
+      </xpath>
+      
+      <xpath expr="//t[@t-foreach='doc.amount_by_group']" position="replace">
+            <tr style="">
+                <td><strong>Tax</strong></td>
+                <td class="text-right o_price_total">
+                    <span t-esc="doc.amount_tax" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                </td>
+            </tr>
+      </xpath> 
+    </template>
+
+</odoo>

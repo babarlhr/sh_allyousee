@@ -1,0 +1,39 @@
+<odoo>
+
+    <template id="report_purchaseorder_document_oh_inherit" inherit_id="purchase.report_purchaseorder_document">
+
+         <xpath expr="//p[@t-field='o.date_order']" position="attributes">
+                <attribute name='t-options'>{"widget": "date"}</attribute>
+         </xpath>
+
+         <xpath expr="//t[@t-if='not line.display_type']//span[@t-field='line.date_planned']" position="attributes">
+             <attribute name='t-options'>{"widget": "date"}</attribute>
+         </xpath>
+
+         <xpath expr="//th[@name='th_description']" position="after">
+             <th name="th_default_code"><strong>Ref.</strong></th>
+         </xpath>
+
+         <xpath expr="//t[@t-if='not line.display_type']//td[@id='product']" position="after">
+             <td id="internal_reference">
+               <span t-field="line.product_id.default_code"/>
+             </td>
+         </xpath>
+
+         <xpath expr="//th[@name='th_taxes']" position="replace">
+         </xpath>
+
+         <xpath expr="//td[@name='td_taxes']" position="replace">
+         </xpath>
+
+         <xpath expr="//div[@id='total']" position="after">
+             <div class="row mt32 mb32">
+                 Payment Terms : <span t-field="o.payment_term_id.name"/><br/>
+                 Invoicing : <br/>
+                 Incoterm : 
+             </div>
+         </xpath>
+
+    </template>
+
+</odoo>

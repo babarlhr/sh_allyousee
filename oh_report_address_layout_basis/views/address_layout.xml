@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <template id="address_layout" inherit_id="web.address_layout">
+        <xpath expr="//div[@class='address row']" position="replace">
+            <div class="address row">
+                <div name="address" class="col-6">
+                    <t t-raw="address"/>
+                </div>
+                <p class="row mb32"><![CDATA[&nbsp;]]></p>
+                <t t-if="information_block">
+                    <div name="information_block" class="col-5 offset-1">
+                        <t t-raw="information_block"/>
+                    </div>
+                    <p class="row mb32"><![CDATA[&nbsp;]]></p>
+                </t>
+
+            </div>
+ 
+        </xpath>
+    </template>
+
+</odoo>
